@@ -1,0 +1,3 @@
+
+
+mypy main.py rtx
