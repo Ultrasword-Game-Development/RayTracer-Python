@@ -64,7 +64,7 @@ def save_to_file(filename: str, arr: List[List[int]]) -> None:
 
 def convert_buffer_to_uint32(arr: List[List[Tuple[int, int, int, int]]]) -> List[List[int]]:
     """Converts an (r, g, b, a) array to its single integer counterpart"""
-    new = []
+    new: List[List[int]] = []
     # argb
     for i, row in enumerate(arr):
         new.append([])
