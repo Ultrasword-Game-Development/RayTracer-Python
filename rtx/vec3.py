@@ -8,7 +8,7 @@ contains functions and objects that store data for vector2/vector3
 import numpy as np
 
 from collections.abc import Sequence
-from typing import Union, List
+from typing import Union, List, Any, Annotated
 from dataclasses import dataclass
 from math import sqrt
 
@@ -24,10 +24,10 @@ class Vector3:
     Vector3
     - stores positional data in 3 dimensions
     """
-    arr: np.array
+    arr: Any
     mag: float
     
-    def __init__(self, arr: Sequence[VECTOR_TYPES, VECTOR_TYPES, VECTOR_TYPES]):
+    def __init__(self, arr: Annotated[List[VECTOR_TYPES], 3]):
         """Init function for Vector3"""
         self.arr = np.array(arr)
         self.mag = self.get_magnitude()
@@ -49,7 +49,7 @@ class Vector3:
         """Find the cross product"""
         if not isinstance(o, Vector3):
             raise NotImplementedError(f"{type(o)} is not an instance of Vector3")
-        return Vector3(np.cross(self.arr, o.arr))
+        return Vector3(list(np.cross(self.arr, o.arr)))
 
 
     # ------------------------------------------ #

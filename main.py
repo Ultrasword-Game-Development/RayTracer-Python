@@ -6,7 +6,7 @@ from typing import List, Union, Tuple
 
 import rtx
 from rtx.io import image
-from rtx import world, vec, face
+from rtx import world, vec3, face
 
 # ------------------------------------------ #
 # world tests
@@ -21,14 +21,14 @@ from rtx import world, vec, face
 
 # ------------------------------------------ #
 # math testing
-a = vec.Vector3(-2, -2, 0)
-b = vec.Vector3(-2, -1, 0)
+a = vec3.Vector3([-2, -2, 0])
+b = vec3.Vector3([-2, -1, 0])
 
-print(a)
-print(b)
-
-# add
+print(a, b)
 print(a + b)
 print(a - b)
+print(a.cross(b))
 print(a.dot(b))
+
+
 
