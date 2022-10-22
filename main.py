@@ -21,7 +21,14 @@ from rtx import world, vec, face
 
 # ------------------------------------------ #
 # math testing
-v2 = vec.Vector2(10, 10)
+a = vec.Vector3(-2, -2, 0)
+b = vec.Vector3(-2, -1, 0)
 
-print(v2)
+print(a)
+print(b)
+
+# add
+print(a + b)
+print(a - b)
+print(a.dot(b))
 
