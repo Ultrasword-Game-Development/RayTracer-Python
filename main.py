@@ -6,11 +6,12 @@ from typing import List, Union, Tuple
 
 import rtx
 from rtx.io import image
-from rtx import world, vec3, face
+from rtx import world, vec3, face, entity
 
 # ------------------------------------------ #
 # world tests
-# rworld = world.World()
+rworld = world.World()
+re = entity.Entity([10, 10, 10])
 
 # ------------------------------------------ #
 # image test
@@ -18,17 +19,16 @@ from rtx import world, vec3, face
 # image.save_to_file("assets/result.png", arr)
 # print("saved file")
 
-
 # ------------------------------------------ #
 # math testing
-a = vec3.Vector3([-2, -2, 0])
-b = vec3.Vector3([-2, -1, 0])
+# a = vec3.Vector3([-2, -2, 0])
+# b = vec3.Vector3([-2, -1, 0])
 
-print(a, b)
-print(a + b)
-print(a - b)
-print(a.cross(b))
-print(a.dot(b))
+# print(a, b)
+# print(a + b)
+# print(a - b)
+# print(a.cross(b))
+# print(a.dot(b))
 
 
 
