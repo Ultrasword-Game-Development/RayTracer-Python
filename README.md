@@ -11,3 +11,18 @@ I like making slow applications. Therefore I am making python program for very c
 ## How does it work?
 
 Its not finished yet so I don't know either :)
+
+## To-Do List
+
+### Urgent
+
+- shapes
+- ray tracing theory
+- camera
+- io
+- world
+- rendering
+
+### Later
+
+-lighting, reflection, etc
