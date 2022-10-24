@@ -6,12 +6,16 @@ from typing import List, Union, Tuple
 
 import rtx
 from rtx.io import image
-from rtx import world, vec3, face, entity
+from rtx import world, vec3, face, entity, camera
 
 # ------------------------------------------ #
 # world tests
 rworld = world.World()
 re = entity.Entity([10, 10, 10])
+
+# ------------------------------------------ #
+# camera test
+rcam = camera.Camera(vec3.Vector3([1, 1, 1]), vec3.Vector3([0, 0, 0]), (1.0, 1.0), (100, 100), camera.ORTHO)
 
 # ------------------------------------------ #
 # image test

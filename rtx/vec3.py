@@ -32,6 +32,36 @@ class Vector3:
         self.arr = np.array(arr)
         self.mag = self.get_magnitude()
     
+    @property
+    def x(self) -> float:
+        """The x property"""
+        return self.arr[0]
+    
+    @x.setter
+    def x(self, n: float) -> None:
+        """Set x"""
+        self.arr[0] = n
+
+    @property
+    def y(self) -> float:
+        """The y property"""
+        return self.arr[1]
+    
+    @y.setter
+    def y(self, n: float) -> None:
+        """Set y"""
+        self.arr[1] = n
+
+    @property
+    def z(self) -> float:
+        """The z property"""
+        return self.arr[2]
+    
+    @z.setter
+    def z(self, n: float) -> None:
+        """Set z"""
+        self.arr[2] = n
+    
     # ------------------------------------------ #
     # data related funcs
     
@@ -51,7 +81,6 @@ class Vector3:
             raise NotImplementedError(f"{type(o)} is not an instance of Vector3")
         return Vector3(list(np.cross(self.arr, o.arr)))
 
-
     # ------------------------------------------ #
     # math related funcs
 
@@ -63,13 +92,19 @@ class Vector3:
     
     def __add__(self, o: object) -> object:
         """Adds two vectors together"""
+        if isinstance(o, (list, tuple)):
+            # calcualte with list
+            return Vector3([self.arr[0] + o[0], self.arr[1] + o[1], self.arr[2] + o[2]])
         if not isinstance(o, Vector3):
-            return False
+            raise NotImplementedError(f"What vector is that? | {o}")
         return Vector3([self.arr[0] + o.arr[0], self.arr[1] + o.arr[1], self.arr[2] + o.arr[2]])
 
     def __sub__(self, o: object) -> object:
         """Subtract two vectors together"""
+        if isinstance(o, (list, tuple)):
+            # calculate with list
+            return Vector3([self.arr[0] - o[0], self.arr[1] - o[1], self.arr[2] - o[2]]) 
         if not isinstance(o, Vector3):
-            return False
+            raise NotImplementedError(f"What vector is that? | {o}")
         return Vector3([self.arr[0] - o.arr[0], self.arr[1] - o.arr[1], self.arr[2] - o.arr[2]])
     
