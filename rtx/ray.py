@@ -29,7 +29,5 @@ class Ray:
         """Init function for Ray"""
         self.origin = origin
         self.direction = direction
-    
-    
 
 

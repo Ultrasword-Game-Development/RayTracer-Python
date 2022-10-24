@@ -57,6 +57,33 @@ class Sphere(Shape):
     
     def ray_intersect(self, r: ray.Ray) -> bool:
         """Checks is a ray intersects with the sphere"""
-        return False
+        # first calculations
+        i: List[float] = [
+            r.origin.x - self.pos.x,
+            r.origin.y - self.pos.y,
+            r.origin.z - self.pos.z
+        ]
+        # non variable values
+        nvv: List[float] = [
+            i[0] * i[0],
+            i[1] * i[1],
+            i[2] * i[2]
+        ]
 
+        # one variable values
+        ovv: List[float] = [
+            -2 * i[0] * r.direction.x,
+            -2 * i[1] * r.direction.y,
+            -2 * i[2] * r.direction.z
+        ]
+
+        # variable squared
+        tvv: List[float] = [
+            r.direction.x * r.direction.x,
+            r.direction.y * r.direction.y,
+            r.direction.z * r.direction.z
+        ]
+
+        # find final equation - 0 = t^2, 1 = t, 2 = 0
+        final: List[float] = [sum(tvv), sum(ovv), sum(nvv) - self.radius] # all this equals = 0
 
