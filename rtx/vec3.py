@@ -81,6 +81,14 @@ class Vector3:
             raise NotImplementedError(f"{type(o)} is not an instance of Vector3")
         return Vector3(list(np.cross(self.arr, o.arr)))
 
+    def to_array(self) -> Annotated[List[VECTOR_TYPES], 3]:
+        """Return a vector array"""
+        return [self.arr[0], self.arr[1], self.arr[2]]
+
+    def normalize(self) -> None:
+        """Normalize a vector"""
+        print("Implement Normalizing Vectors")
+
     # ------------------------------------------ #
     # math related funcs
 
@@ -108,3 +116,10 @@ class Vector3:
             raise NotImplementedError(f"What vector is that? | {o}")
         return Vector3([self.arr[0] - o.arr[0], self.arr[1] - o.arr[1], self.arr[2] - o.arr[2]])
     
+    def __mul__(self, o: Union[int, float]) -> object:
+        """Multiply a vector with a scalar"""
+        return Vector3([self.arr[0] * o, self.arr[1] * o, self.arr[2] * o])
+    
+    def __truediv__(self, o: Union[int,float]) -> object:
+        """Divide a vector with a scalar"""
+        return Vector3([self.arr[0] / o, self.arr[1] / o, self.arr[2] / o])

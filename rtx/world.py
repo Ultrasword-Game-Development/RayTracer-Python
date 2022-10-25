@@ -12,8 +12,7 @@ contains functions and objects that store the world (the thing that renderer ren
 
 from typing import Union, List, Tuple, Dict
 
-from . import entity
-from . import camera
+from . import entity, camera, ray
 
 
 class World:
@@ -24,8 +23,13 @@ class World:
     """
 
     def __init__(self) -> None:
+        """Init function for World"""
         print("World was created!")
         self.entities: Dict[int, entity.Entity] = {}
+    
+    def handle_ray(self, r: ray.Ray) -> List[float]:
+        """Handles the ray intersection in a world"""
+        return [0, 0, 0, 0]
 
 
 

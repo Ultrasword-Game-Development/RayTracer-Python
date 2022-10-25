@@ -8,8 +8,7 @@ contains functions and objects for the camera (basically the renderer but not re
 from collections.abc import Sequence
 from typing import List, Union, Tuple
 
-from . import vec3
-from . import ray
+from . import vec3, ray, world
 
 
 # ------------------------------------------ #
@@ -40,7 +39,9 @@ class Camera:
         self.lookat = vec3.Vector3(la)
         # calculate view vectors
         self.rays: List[List[ray.Ray]] = self.generate_orthographic_rays() if self.view_type == ORTHO else self.generate_perspective_rays()
-    
+        # ray collision events
+        self.collision_events = []
+
     def generate_orthographic_rays(self) -> List[List[ray.Ray]]:
         """Generate rays for orthographic viewport"""
         result: List[List[ray.Ray]] = []
@@ -59,7 +60,7 @@ class Camera:
         """Generate rays for perspective viewport"""
         pass
 
-    def compute_rays(self) -> List[List[Tuple[int, int, int, int]]]:
+    def compute_rays(self, rworld: world.World) -> List[List[Tuple[int, int, int, int]]]:
         """Compute all the rays and calculate an image"""
         result: List[List[Tuple[int, int, int, int]]] = []
         for y in range(self.res[1]):
@@ -67,6 +68,8 @@ class Camera:
             for x in range(self.res[0]):
                 pix: List[float] = [0, 0, 0, 0]
                 # calculate pixel values
+                rgba: List[float] = rworld.handle_ray(self.rays[y][x])
+                # collisions!!!
                 
                 # append to buf
                 result[y].append((int(pix[0]), int(pix[1]), int(pix[2]), int(pix[3])))

@@ -33,7 +33,7 @@ class Shape:
 
     def ray_intersect(self, r: ray.Ray) -> intersect.Collision:
         """Checks if a ray intersects a shape"""
-        return False
+        pass
     
     def handle_intersect(self, r: ray.Ray) -> None:
         """Handles a ray intersection"""
@@ -54,7 +54,7 @@ class Sphere(Shape):
         super().__init__(pos)
         self.radius = radius
     
-    def ray_intersect(self, r: ray.Ray) -> intersect.Collision:
+    def ray_intersect(self, r: ray.Ray) -> Tuple[bool, intersect.Collision]:
         """Checks is a ray intersects with the sphere"""
         # first calculations
         i: List[float] = [
@@ -87,8 +87,13 @@ class Sphere(Shape):
         f: List[float] = [sum(tvv), sum(ovv), sum(nvv) - self.radius] # all this equals = 0
         quad: Tuple[int, List[float]] = maths.solve_quadratic(f[0], f[1], f[2])
         # find closest value
-        close_t: float = 0
         if not quad[0]:
-            return intersect.Collision(None, None)
+            return (False, intersect.Collision(r, vec3.Vector3([0, 0, 0])))
+        if len(quad) == 1:
+            rr = r.origin + r.direction * quad[0]
+            return (True, intersect.Collision(r, vec3.Vector3(rr.arr)))
+        # return closer value
+        rr = r.origin + r.direction * (quad[0] if abs(quad[0]) < abs(quad[1]) else quad[1])
+        return (True, intersect.Collision(r, vec3.Vector3(rr.arr)))
 
 

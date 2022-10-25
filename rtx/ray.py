@@ -28,6 +28,6 @@ class Ray:
     def __init__(self, origin: vec3.Vector3, direction: vec3.Vector3) -> None:
         """Init function for Ray"""
         self.origin = origin
-        self.direction = direction
+        self.direction = direction.normalize()
 
 
