@@ -7,11 +7,10 @@ contains methods and functions for shapes that can be placed within the world
 
 import numpy as np
 from collections.abc import Sequence
-from typing import List, Union, Any
+from typing import List, Union, Any, Tuple
 from dataclasses import dataclass
 
-from . import vec3
-from . import ray
+from . import vec3, ray, intersect, maths
 
 # ------------------------------------------ #
 # shape
@@ -32,7 +31,7 @@ class Shape:
         """Init function for a Shape"""
         self.pos = pos
 
-    def ray_intersect(self, r: ray.Ray) -> bool:
+    def ray_intersect(self, r: ray.Ray) -> intersect.Collision:
         """Checks if a ray intersects a shape"""
         return False
     
@@ -55,7 +54,7 @@ class Sphere(Shape):
         super().__init__(pos)
         self.radius = radius
     
-    def ray_intersect(self, r: ray.Ray) -> bool:
+    def ray_intersect(self, r: ray.Ray) -> intersect.Collision:
         """Checks is a ray intersects with the sphere"""
         # first calculations
         i: List[float] = [
@@ -85,5 +84,11 @@ class Sphere(Shape):
         ]
 
         # find final equation - 0 = t^2, 1 = t, 2 = 0
-        final: List[float] = [sum(tvv), sum(ovv), sum(nvv) - self.radius] # all this equals = 0
+        f: List[float] = [sum(tvv), sum(ovv), sum(nvv) - self.radius] # all this equals = 0
+        quad: Tuple[int, List[float]] = maths.solve_quadratic(f[0], f[1], f[2])
+        # find closest value
+        close_t: float = 0
+        if not quad[0]:
+            return intersect.Collision(None, None)
+
 
