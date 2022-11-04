@@ -12,7 +12,7 @@ contains functions and objects that store the world (the thing that renderer ren
 
 from typing import Union, List, Tuple, Dict
 
-from . import entity, camera, ray
+from . import entity, ray
 
 
 class World:
@@ -29,7 +29,15 @@ class World:
     
     def handle_ray(self, r: ray.Ray) -> List[float]:
         """Handles the ray intersection in a world"""
-        return [0, 0, 0, 0]
+        return r.trace(self, [0.0, 0.0, 0.0, 0.0])
+    
+    def add_entity(self, ent: entity.Entity) -> None:
+        """Add an entity to a world"""
+        self.entities[ent.eid] = ent
+    
+    def remove_entity(self, eid: int) -> None:
+        """Remove an entity from a world"""
+        self.entities.pop(eid)
 
 
 

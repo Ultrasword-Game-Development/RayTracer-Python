@@ -72,3 +72,12 @@ def convert_buffer_to_uint32(arr: List[List[Tuple[int, int, int, int]]]) -> List
             new[i].append((p[3]<<24) + (p[2] << 16) + (p[1] << 8) + p[0])
     return new
 
+
+# def convert_buffer_from_float32(arr: List[List[Tuple[float, float, float, float]]]) -> List[List[int]]:
+#     """Convert buffer from float32 to uint32 single (r, g, b,a) format"""
+#     new_arr = []
+#     for y in range(len(arr)):
+#         new_arr.append([])
+#         for x in range(len(arr[0])):
+#             new_arr[y].append(tuple(map(lambda x: min(255, int(x * 255)), arr[y][x])))
+#     return convert_buffer_to_uint32(new_arr)

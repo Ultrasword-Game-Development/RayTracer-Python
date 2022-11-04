@@ -29,7 +29,7 @@ class Vector3:
     
     def __init__(self, arr: Annotated[List[VECTOR_TYPES], 3]):
         """Init function for Vector3"""
-        self.arr = np.array(arr)
+        self.arr = np.array(arr, dtype=np.float32)
         self.mag = self.get_magnitude()
     
     @property
@@ -87,7 +87,13 @@ class Vector3:
 
     def normalize(self) -> None:
         """Normalize a vector"""
-        print("Implement Normalizing Vectors")
+        if not self.mag: return
+        self.x /= self.mag
+        self.y /= self.mag
+        self.z /= self.mag
+        self.mag = 1
+        # print(self.x, self.y, self.z, self.mag)
+        # print("Implement Normalizing Vectors")
 
     # ------------------------------------------ #
     # math related funcs

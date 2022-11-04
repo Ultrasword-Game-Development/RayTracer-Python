@@ -12,7 +12,7 @@ from typing import Union, List, Type
 from dataclasses import dataclass
 
 
-from . import vec3
+from . import vec3, shape as s
 
 
 # ------------------------------------------ #
@@ -38,13 +38,15 @@ class Entity:
     """
     pos: vec3.Vector3
     eid: int
+    shape: s.Shape
 
-    def __init__(self, pos: Union[vec3.Vector3, List[Union[int, float]]], eid: int = get_entity_id()):
+    def __init__(self, pos: Union[vec3.Vector3, List[Union[int, float]]], shape: s.Shape, eid: int = get_entity_id()):
         """Init function for Entity"""
         self.pos = pos if isinstance(pos, vec3.Vector3) else vec3.Vector3(pos)
+        self.shape = shape
         self.eid = eid
         print(self)
-    
+
     def __repr__(self) -> str:
         """Represent this value in console"""
         return f"eid: {self.eid}, pos: {self.pos}"    

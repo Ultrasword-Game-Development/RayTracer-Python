@@ -28,6 +28,20 @@ class Ray:
     def __init__(self, origin: vec3.Vector3, direction: vec3.Vector3) -> None:
         """Init function for Ray"""
         self.origin = origin
-        self.direction = direction.normalize()
-
+        self.direction = direction
+    
+    def trace(self, world: Any, color: List[float]):
+        """Trace the ray in a world - recursive"""
+        for eid, ent in world.entities.items():
+            col = ent.shape.ray_intersect(self)
+            if not col[0]:
+                return color
+            # there is a collision
+            # for now just set all to white
+            for x in range(4):
+                color[x] = 1.0
+            # print(color)
+            return color
+        # garunteed
+        return color
 

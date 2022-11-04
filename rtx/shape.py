@@ -29,6 +29,8 @@ class Shape:
 
     def __init__(self, pos: vec3.Vector3) -> None:
         """Init function for a Shape"""
+        if not isinstance(pos, vec3.Vector3):
+            pos = vec3.Vector3(pos)
         self.pos = pos
 
     def ray_intersect(self, r: ray.Ray) -> intersect.Collision:
@@ -93,7 +95,8 @@ class Sphere(Shape):
             rr = r.origin + r.direction * quad[0]
             return (True, intersect.Collision(r, vec3.Vector3(rr.arr)))
         # return closer value
-        rr = r.origin + r.direction * (quad[0] if abs(quad[0]) < abs(quad[1]) else quad[1])
+        # print(quad)
+        rr = r.origin + r.direction * (quad[1][0] if abs(quad[1][0]) < abs(quad[1][1]) else quad[1][1])
         return (True, intersect.Collision(r, vec3.Vector3(rr.arr)))
 
 

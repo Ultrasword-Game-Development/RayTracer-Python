@@ -8,7 +8,7 @@ contains functions and objects for the camera (basically the renderer but not re
 from collections.abc import Sequence
 from typing import List, Union, Tuple
 
-from . import vec3, ray, world
+from . import vec3, ray, world, maths
 
 
 # ------------------------------------------ #
@@ -35,8 +35,10 @@ class Camera:
         self.view_type = view_type
         # calculate vector from position to target
         print("camera.py | when testing, if camera is inverted or objects do not appear, try reversing lookat vector")
-        la: List[float] = [self.target.x - self.pos.x, self.target.y - self.pos.y, self.target.z - self.pos.z]
+        la = [self.target.x - self.pos.x, self.target.y - self.pos.y, self.target.z - self.pos.z]
         self.lookat = vec3.Vector3(la)
+        self.lookat.normalize()
+        # print(maths.copy_vector(self.lookat))
         # calculate view vectors
         self.rays: List[List[ray.Ray]] = self.generate_orthographic_rays() if self.view_type == ORTHO else self.generate_perspective_rays()
         # ray collision events
@@ -53,7 +55,8 @@ class Camera:
             for x in range(self.res[0]):
                 # generate ray
                 pos: List[float] = [self.pos.x - half[0] + ww[0] * x, self.pos.y - half[1] + ww[1] * y, self.pos.z]
-                result[y].append(ray.Ray(vec3.Vector3(pos), self.lookat))
+                result[y].append(ray.Ray(vec3.Vector3(pos), maths.copy_vector(self.lookat)))
+        # print(result[0][0].direction)
         return result
 
     def generate_perspective_rays(self) -> List[List[ray.Ray]]:
@@ -70,7 +73,8 @@ class Camera:
                 # calculate pixel values
                 rgba: List[float] = rworld.handle_ray(self.rays[y][x])
                 # collisions!!!
-                
                 # append to buf
-                result[y].append((int(pix[0]), int(pix[1]), int(pix[2]), int(pix[3])))
+                result[y].append((tuple(map(lambda x: min(255, int(x * 255)), rgba))))
+                # print(result[y][x])
+        print("we need collisions ln 73 camera.py")
         return result
