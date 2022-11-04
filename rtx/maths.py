@@ -24,8 +24,8 @@ def solve_quadratic(a: float, b: float, c: float) -> Tuple[int, List[float]]:
         return r
     else:
         # two answers
-        one = (-b + discrim) / 2 / a
-        two = (-b - discrim) / 2 / a
+        one = (-b + math.sqrt(discrim)) / 2 / a
+        two = (-b - math.sqrt(discrim)) / 2 / a
         r = (2, [])
         if one >= 0: r[1].append(one)
         if two >= 0: r[1].append(two)
