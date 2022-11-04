@@ -89,9 +89,9 @@ class Sphere(Shape):
         f: List[float] = [sum(tvv), sum(ovv), sum(nvv) - self.radius] # all this equals = 0
         quad: Tuple[int, List[float]] = maths.solve_quadratic(f[0], f[1], f[2])
         # find closest value
-        if not quad[0]:
+        if not quad[0] or not len(quad[1]):
             return (False, intersect.Collision(r, vec3.Vector3([0, 0, 0])))
-        if len(quad) == 1:
+        if len(quad[1]) == 1:
             rr = r.origin + r.direction * quad[0]
             return (True, intersect.Collision(r, vec3.Vector3(rr.arr)))
         # return closer value
