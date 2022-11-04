@@ -13,10 +13,12 @@ from rtx import world, vec3, face, entity, camera, shape
 rworld = world.World()
 re = entity.Entity([0, 0, 0], shape.Sphere([0, 0, 0], 5))
 rworld.add_entity(re)
+rworld.add_entity(entity.Entity([0, 0, 0], shape.Sphere([3, 0, 0], 3)))
 
 # ------------------------------------------ #
 # camera test
-rcam = camera.Camera(vec3.Vector3([1, 1, 1]), vec3.Vector3([0, 0, 0]), (10.0, 10.0), (20, 20), camera.ORTHO)
+rcam = camera.Camera(vec3.Vector3([10, 10, 10]), vec3.Vector3([0, 0, 0]), (10.0, 10.0), 
+                    (100, 100), camera.ORTHO)
 
 # test image save
 buff = rcam.compute_rays(rworld)
@@ -25,7 +27,7 @@ buff = rcam.compute_rays(rworld)
 
 save = image.convert_buffer_to_uint32(buff)
 
-print(save)
+# print(save)
 image.save_to_file("assets/result.png", save)
 
 # ------------------------------------------ #

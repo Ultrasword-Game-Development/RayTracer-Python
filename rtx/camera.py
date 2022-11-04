@@ -8,7 +8,7 @@ contains functions and objects for the camera (basically the renderer but not re
 from collections.abc import Sequence
 from typing import List, Union, Tuple
 
-from . import vec3, ray, world, maths
+from . import vec3, ray, world, maths, intersect
 
 
 # ------------------------------------------ #
@@ -36,13 +36,13 @@ class Camera:
         # calculate vector from position to target
         print("camera.py | when testing, if camera is inverted or objects do not appear, try reversing lookat vector")
         la = [self.target.x - self.pos.x, self.target.y - self.pos.y, self.target.z - self.pos.z]
-        self.lookat = vec3.Vector3(la)
+        self.lookat = vec3.Vector3(la) * -1
         self.lookat.normalize()
         # print(maths.copy_vector(self.lookat))
         # calculate view vectors
         self.rays: List[List[ray.Ray]] = self.generate_orthographic_rays() if self.view_type == ORTHO else self.generate_perspective_rays()
         # ray collision events
-        self.collision_events = []
+        self.collision_events: List[intersect.Collision] = []
 
     def generate_orthographic_rays(self) -> List[List[ray.Ray]]:
         """Generate rays for orthographic viewport"""
@@ -74,7 +74,7 @@ class Camera:
                 rgba: List[float] = rworld.handle_ray(self.rays[y][x])
                 # collisions!!!
                 # append to buf
-                result[y].append((tuple(map(lambda x: min(255, int(x * 255)), rgba))))
+                result[y].append((int(rgba[0]*255), int(rgba[1]*255), int(rgba[2]*255), int(rgba[3]*255)))
                 # print(result[y][x])
         print("we need collisions ln 73 camera.py")
         return result

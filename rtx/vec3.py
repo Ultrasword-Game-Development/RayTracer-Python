@@ -8,7 +8,7 @@ contains functions and objects that store data for vector2/vector3
 import numpy as np
 
 from collections.abc import Sequence
-from typing import Union, List, Any, Annotated
+from typing import Union, List, Any, Annotated, Type
 from dataclasses import dataclass
 from math import sqrt
 

@@ -7,7 +7,7 @@ contains methods and functions for shapes that can be placed within the world
 
 import numpy as np
 from collections.abc import Sequence
-from typing import List, Union, Any, Tuple
+from typing import List, Union, Any, Tuple, Annotated
 from dataclasses import dataclass
 
 from . import vec3, ray, intersect, maths
@@ -33,7 +33,7 @@ class Shape:
             pos = vec3.Vector3(pos)
         self.pos = pos
 
-    def ray_intersect(self, r: ray.Ray) -> intersect.Collision:
+    def ray_intersect(self, r: ray.Ray) -> Tuple[bool, intersect.Collision]:
         """Checks if a ray intersects a shape"""
         pass
     
@@ -56,7 +56,7 @@ class Sphere(Shape):
         super().__init__(pos)
         self.radius = radius
     
-    def ray_intersect(self, r: ray.Ray) -> Tuple[bool, intersect.Collision]:
+    def ray_intersect(self, r: ray.Ray) -> Tuple[bool, Union[None, intersect.Collision]]:
         """Checks is a ray intersects with the sphere"""
         # first calculations
         i: List[float] = [
@@ -90,13 +90,18 @@ class Sphere(Shape):
         quad: Tuple[int, List[float]] = maths.solve_quadratic(f[0], f[1], f[2])
         # find closest value
         if not quad[0] or not len(quad[1]):
-            return (False, intersect.Collision(r, vec3.Vector3([0, 0, 0])))
+            return (False, None)
         if len(quad[1]) == 1:
-            rr = r.origin + r.direction * quad[0]
+            if quad[1][0] < 0: return (False, None)
+            rr = r.origin + r.direction * quad[1][0]
             return (True, intersect.Collision(r, vec3.Vector3(rr.arr)))
         # return closer value
         # print(quad)
-        rr = r.origin + r.direction * (quad[1][0] if abs(quad[1][0]) < abs(quad[1][1]) else quad[1][1])
+        rr = r.origin + r.direction
+        dis = max(quad[1])
+        if dis < 0: return (False, None)
+        rr *= dis
+        # print(rr)
         return (True, intersect.Collision(r, vec3.Vector3(rr.arr)))
 
 

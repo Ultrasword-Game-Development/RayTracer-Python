@@ -19,7 +19,7 @@ def solve_quadratic(a: float, b: float, c: float) -> Tuple[int, List[float]]:
     elif discrim == 0:
         # one answer
         one = -b / 2 / a
-        r = (1, [])
+        r: Tuple[int, List[float]] = (1, [])
         if one >= 0: r[1].append(one)
         return r
     else:

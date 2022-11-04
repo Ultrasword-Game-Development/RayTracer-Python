@@ -34,8 +34,9 @@ class Ray:
         """Trace the ray in a world - recursive"""
         for eid, ent in world.entities.items():
             col = ent.shape.ray_intersect(self)
+            # print(col)
             if not col[0]:
-                return color
+                continue
             # there is a collision
             # for now just set all to white
             for x in range(4):
