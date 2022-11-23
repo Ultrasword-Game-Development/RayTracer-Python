@@ -55,7 +55,7 @@ class Camera:
             for x in range(self.res[0]):
                 # generate ray
                 pos: List[float] = [self.pos.x - half[0] + ww[0] * x, self.pos.y - half[1] + ww[1] * y, self.pos.z]
-                result[y].append(ray.Ray(vec3.Vector3(pos), maths.copy_vector(self.lookat)))
+                result[y].append(ray.Ray(vec3.Vector3(pos), maths.copy_vector(self.lookat) * -1))
         print(result[0][0].direction)
         return result
 
@@ -72,9 +72,12 @@ class Camera:
                 pix: List[float] = [0, 0, 0, 0]
                 # calculate pixel values
                 rgba: List[float] = rworld.handle_ray(self.rays[y][x])
+                # if rgba[0]: print(x, y)
                 # collisions!!!
                 # append to buf
                 result[y].append((int(rgba[0]*255), int(rgba[1]*255), int(rgba[2]*255), int(rgba[3]*255)))
+                # result[y].append((int(x/self.res[0]*255), int(y/self.res[1]*255), int(rgba[2]*255), int(rgba[3]*255)))
+
                 # print(result[y][x])
         print("we need collisions ln 73 camera.py")
         return result

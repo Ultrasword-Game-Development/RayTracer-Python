@@ -39,8 +39,10 @@ class Ray:
                 continue
             # there is a collision
             # for now just set all to white
+            # print(col[1])
             for x in range(4):
-                color[x] = 1.0
+                color[x] = 1 - 1 / (col[1] - 30)
+            color[3] = 1
             # print(color)
             return color
         # garunteed

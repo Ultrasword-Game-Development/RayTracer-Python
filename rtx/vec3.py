@@ -62,6 +62,10 @@ class Vector3:
         """Set z"""
         self.arr[2] = n
     
+    def __repr__(self) -> str:
+        """Represent the Vector"""
+        return f"Vector3: {self.arr}"
+    
     # ------------------------------------------ #
     # data related funcs
     

@@ -38,5 +38,9 @@ class Collision:
     def collision_point(self) -> vec3.Vector3:
         """Get the collision point"""
         return self.cpos
+    
+    def __repr__(self) -> str:
+        """Represent the collision"""
+        return f"Collision with ray at: {self.cpos}"
 
 
