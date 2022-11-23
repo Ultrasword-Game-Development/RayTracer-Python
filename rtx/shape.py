@@ -58,35 +58,46 @@ class Sphere(Shape):
     
     def ray_intersect(self, r: ray.Ray) -> Tuple[bool, Union[None, intersect.Collision]]:
         """Checks is a ray intersects with the sphere"""
-        # first calculations
+        # first calculations - distance between ray origin and sphere center
         i: List[float] = [
             r.origin.x - self.pos.x,
             r.origin.y - self.pos.y,
             r.origin.z - self.pos.z
         ]
-        # non variable values
+        # equation: (x1 - tx) ^2 + (y1 - ty)^2 + (z1 - tz)^2 = r^2
+        # tx = translation of sphere
+        # x1, y1, z1 = position
+        # r = radius
+        a: float = r.direction.x ** 2 + r.direction.y ** 2 + r.direction.z ** 2
+        b: float = 2 * (r.direction.x * (r.origin.x - self.pos.x) + r.direction.y * (r.origin.y - self.pos.y) + r.direction.z * (r.origin.z - self.pos.z))
+        
+        c: float = self.pos.x ** 2 + self.pos.y ** 2 + self.pos.z ** 2 + r.origin.x ** 2 + r.origin.y ** 2 + r.origin.z ** 2 - 2 + dot
+
+        one_variable: float = 
+
+        # this is the [t^2]
+        no_variables: float = self.pos[0] * self.pos[0] + self.pos[1] * self.pos[1] + self.pos[2] * self.pos[2]
+
+        # non variable values - finding x^2, y^2, and z^2
         nvv: List[float] = [
             i[0] * i[0],
             i[1] * i[1],
             i[2] * i[2]
         ]
-
         # one variable values
         ovv: List[float] = [
             -2 * i[0] * r.direction.x,
             -2 * i[1] * r.direction.y,
             -2 * i[2] * r.direction.z
         ]
-
         # variable squared
         tvv: List[float] = [
             r.direction.x * r.direction.x,
             r.direction.y * r.direction.y,
             r.direction.z * r.direction.z
         ]
-
         # find final equation - 0 = t^2, 1 = t, 2 = 0
-        f: List[float] = [sum(tvv), sum(ovv), sum(nvv) - self.radius] # all this equals = 0
+        f: List[float] = [sum(tvv), sum(ovv), sum(nvv) - self.radius*self.radius] # all this equals = 0
         quad: Tuple[int, List[float]] = maths.solve_quadratic(f[0], f[1], f[2])
         # find closest value
         if not quad[0] or not len(quad[1]):

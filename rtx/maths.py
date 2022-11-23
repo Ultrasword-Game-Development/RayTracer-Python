@@ -35,3 +35,8 @@ def solve_quadratic(a: float, b: float, c: float) -> Tuple[int, List[float]]:
 def copy_vector(vec: vec3.Vector3) -> vec3.Vector3:
     """Copy a vector"""
     return vec3.Vector3(vec.arr.copy())
+
+
+def dot(a: vec3.Vector3, b: vec3.Vector3) -> float:
+    """Find dot product"""
+    return a.x * b.x + a.y * b.y + a.z * b.z

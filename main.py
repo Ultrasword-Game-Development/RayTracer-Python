@@ -24,7 +24,6 @@ rcam = camera.Camera(vec3.Vector3([10, 10, 10]), vec3.Vector3([0, 0, 0]), (10.0,
 buff = rcam.compute_rays(rworld)
 
 # print(buff)
-
 save = image.convert_buffer_to_uint32(buff)
 
 # print(save)
