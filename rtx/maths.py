@@ -40,3 +40,7 @@ def copy_vector(vec: vec3.Vector3) -> vec3.Vector3:
 def dot(a: vec3.Vector3, b: vec3.Vector3) -> float:
     """Find dot product"""
     return a.x * b.x + a.y * b.y + a.z * b.z
+
+def cross(a: vec3.Vector3, b: vec3.Vector3) -> vec3.Vector3:
+    """Find cross product"""
+    return vec3.Vector3(list(np.cross), mag)

@@ -55,7 +55,7 @@ class Camera:
             for x in range(self.res[0]):
                 # generate ray
                 pos: List[float] = [self.pos.x - half[0] + ww[0] * x, self.pos.y - half[1] + ww[1] * y, self.pos.z]
-                result[y].append(ray.Ray(vec3.Vector3(pos), maths.copy_vector(self.lookat) * -1))
+                result[y].append(ray.Ray(vec3.Vector3(pos), maths.copy_vector(self.lookat)))
         print(result[0][0].direction)
         return result
 

@@ -13,11 +13,13 @@ from rtx import world, vec3, face, entity, camera, shape
 rworld = world.World()
 re = entity.Entity([0, 0, 0], shape.Sphere([0, 0, 0], 1))
 rworld.add_entity(re)
+rworld.add_entity(entity.Entity([0, 0, 0], shape.Sphere([-3, 0, 0], 1)))
+rworld.add_entity(entity.Entity([0, 0, 0], shape.Sphere([-3, 1, -1], 0.2)))
 rworld.add_entity(entity.Entity([0, 0, 0], shape.Sphere([3, 0, 0], 2)))
 
 # ------------------------------------------ #
 # camera test
-rcam = camera.Camera(vec3.Vector3([20, 20, 20]), vec3.Vector3([0, 0, 0]), (10.0, 10.0), 
+rcam = camera.Camera(vec3.Vector3([10, 0, 0]), vec3.Vector3([0, 0, 0]), (30.0, 30.0), 
                     (100,100), camera.ORTHO)
 
 # test image save
