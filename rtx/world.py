@@ -12,7 +12,9 @@ contains functions and objects that store the world (the thing that renderer ren
 
 from typing import Union, List, Tuple, Dict
 
-from . import entity, ray
+from . import entity, ray, vec3
+
+UP: vec3.Vector3 = vec3.Vector3([0, 1, 0])
 
 
 class World:

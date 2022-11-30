@@ -49,11 +49,14 @@ class Camera:
         result: List[List[ray.Ray]] = []
         half: Tuple[float, float] = (self.viewport[0] / 2, self.viewport[1] / 2)
         ww: Tuple[float, float] = (self.viewport[0]/self.res[0], self.viewport[1]/self.res[1])
+        sideways: vec3.Vector3 = self.lookat.cross(world.UP)
+        sideways.normalize()
         # generate vectors
         for y in range(self.res[1]):
             result.append([])
             for x in range(self.res[0]):
                 # generate ray
+                pos = self.pos + sideways * (x/ww[0]) * self.viewport[0]
                 pos: List[float] = [self.pos.x - half[0] + ww[0] * x, self.pos.y - half[1] + ww[1] * y, self.pos.z]
                 result[y].append(ray.Ray(vec3.Vector3(pos), maths.copy_vector(self.lookat)))
         print(result[0][0].direction)
